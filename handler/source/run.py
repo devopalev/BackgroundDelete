@@ -12,9 +12,8 @@ logger = logging.getLogger(__name__)
 
 @app.post("/delete_background", response_class=FileResponse)
 async def delete_background(file: UploadFile):
-    new = remove(file.file.read())
-
     try:
+        new = remove(file.file.read())
         return Response(new)
     except Exception as err:
         logger.error(err)
