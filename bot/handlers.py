@@ -56,9 +56,15 @@ class PhotoHandler:
             photo_big = photos[-1]
             photo_content_big = photo_big.get_file().download_as_bytearray()
             response = requests.post(config.URL_DELETE_BACKGROUND, files=photo_content_big)
+            if response.ok:
+                update.message.reply_photo(response.content)
+            else:
+                raise ConnectionError(f"Error microservice delete background photo: {response.text}")
             user.limiter_send_photo.sent()
         else:
             extensions.Statistics.limit_triggered()
+            update.message.reply_text(f"Вы отправили слишком много фото. Допустимо {config.COUNT_LIMIT_HANDLER_PHOTO} "
+                                      f"фото в {config.TIME_LIMIT_HANDLER_PHOTO/60} минут.")
 
 
 def error_handler():
