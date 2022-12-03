@@ -1,9 +1,12 @@
+from telegram.ext import Updater
+
+import handlers
+import config
 
 
 def main():
-    updater = Updater(creds.TG_BOT_TOKEN)
-    dispatcher = updater.dispatcher
-
+    updater = Updater(secret.TG_BOT_TOKEN)
+    handlers.add_handlers(updater.dispatcher)
     updater.start_polling()
     updater.idle()
 
