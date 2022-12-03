@@ -40,7 +40,8 @@ def pre_handler(user_data=True):
 
 
 def start(update: Update, context: CallbackContext):
-    text = "Добро пожаловать! Просто отправь мне фотографию и я удалю с неё фон."
+    text = "Добро пожаловать! Просто отправь мне фотографию и я удалю с неё фон 😉"
+    update.effective_chat.send_message(text)
 
 
 class PhotoHandler:
@@ -68,10 +69,16 @@ class PhotoHandler:
                                       f"фото в {config.TIME_LIMIT_HANDLER_PHOTO / 60} минут.")
 
 
-def error_handler():
-    pass
+def error_handler(update: Update, context: CallbackContext):
+    try:
+        logger.error(msg="Exception while handling Telegram update:", exc_info=context.error)
+        update.effective_chat.send_message("Возникла ошибка :(")
+    except Exception as e:
+        logger.error(msg="Exception while handling lower-level exception:", exc_info=e)
 
 
 def add_handlers(dispatcher: Dispatcher):
+    dispatcher.add_error_handler(error_handler)
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(PhotoHandler().tg_handler)
+
