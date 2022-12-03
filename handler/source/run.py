@@ -10,7 +10,7 @@ app = FastAPI()
 logger = logging.getLogger(__name__)
 
 
-@app.get("/delete_background", response_class=FileResponse)
+@app.post("/delete_background", response_class=FileResponse)
 async def delete_background(file: UploadFile):
     new = remove(file.file.read())
 
@@ -22,4 +22,4 @@ async def delete_background(file: UploadFile):
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8065)
+    uvicorn.run(app, host="0.0.0.0", port=8080)
