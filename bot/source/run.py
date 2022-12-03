@@ -5,7 +5,7 @@ import config
 
 
 def main():
-    updater = Updater(secret.TG_BOT_TOKEN)
+    updater = Updater(config.TG_BOT_TOKEN)
     handlers.add_handlers(updater.dispatcher)
     updater.start_polling()
     updater.idle()
