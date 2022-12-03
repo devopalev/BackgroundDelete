@@ -18,7 +18,7 @@ if ($_FILES) {
     if ($info['http_code'] == 200) {
         header('Content-Description: File Transfer');
         header('Content-Type: image/jpg');
-        header('Content-Disposition: attachment; filename=' . basename('photo.jpg'));
+        header('Content-Disposition: attachment; filename=' . $_FILES['images']['name']['0']);
         header('Expires: 0');
         header('Cache-Control: must-revalidate');
         header('Pragma: public');
