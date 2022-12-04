@@ -1,0 +1,34 @@
+version: '3.1'
+
+services:
+  bot:
+    build: ./bot
+    restart: always
+    depends_on:
+      - img_handler
+    environment:
+      TG_BOT_TOKEN: "Your_telegram_token_bot"
+      EDIT_IMAGES_HOST: img_handler
+
+  web:
+    build: ./web
+    restart: always
+    depends_on:
+      - img_handler
+    environment:
+      EDIT_IMAGES_HOST: img_handler
+    ports:
+      # Your port (default: 8088)
+      - "127.0.0.1:8088:80"
+
+  img_handler:
+    build: ./img_handler
+    restart: always
+    ports:
+      - "8080"
+
+    # You can limit resources, be careful. Recommended 700M.
+    # deploy:
+    #  resources:
+    #    limits:
+    #      memory: 350M

@@ -39,20 +39,20 @@ class Statistics:
 
     @classmethod
     def init(cls):
-        if not os.path.isfile(config.STATISTICS_FILE_PATH):
+        if not os.path.isfile(config.STATISTICS_FILE_NAME):
             cls._save_data({Statistics._KEY_ALL_USER: 0, Statistics._KEY_COUNT_USE_BOT: 0,
                             Statistics._KEY_LIMIT_TRIGGERED: 0})
 
     @classmethod
     def _load_data(cls):
         with cls._lock:
-            with open(os.path.join(os.getcwd(), os.path.abspath(config.STATISTICS_FILE_PATH)), "r") as file:
+            with open(os.path.join(os.getcwd(), os.path.abspath(config.STATISTICS_FILE_NAME)), "r") as file:
                 return json.load(file)
 
     @classmethod
     def _save_data(cls, data: dict):
         with cls._lock:
-            with open(os.path.join(os.getcwd(), os.path.abspath(config.STATISTICS_FILE_PATH)), "w") as file:
+            with open(os.path.join(os.getcwd(), os.path.abspath(config.STATISTICS_FILE_NAME)), "w") as file:
                 json.dump(data, file)
 
     @classmethod

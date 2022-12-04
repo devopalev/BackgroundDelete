@@ -53,6 +53,16 @@ def start(update: Update, context: CallbackContext):
                                        parse_mode=ParseMode.HTML)
 
 
+class GetStatistics:
+    def __init__(self):
+        self.tg_handler = CommandHandler("get_statistics", self.handler)
+
+    @pre_handler(user_data=False)
+    def handler(self, update: Update, context: CallbackContext):
+        with open(config.STATISTICS_FILE_NAME, "rb") as file:
+            update.message.reply_document(file.read(), filename=config.STATISTICS_FILE_NAME)
+
+
 class PhotoHandler:
     def __init__(self):
         self.tg_handler = MessageHandler(Filters.photo, self.handler)
@@ -94,3 +104,4 @@ def add_handlers(dispatcher: Dispatcher):
     dispatcher.add_error_handler(error_handler)
     dispatcher.add_handler(CommandHandler("start", start, run_async=True, ))
     dispatcher.add_handler(PhotoHandler().tg_handler)
+    dispatcher.add_handler(GetStatistics().tg_handler)
