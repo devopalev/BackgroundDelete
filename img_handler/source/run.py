@@ -39,4 +39,6 @@ if __name__ == "__main__":
     res = delete_background(img)
     if res.status_code == 200:
         uvicorn.run(app, host="0.0.0.0", port=8080)
-    exit(1)
+    else:
+        logger.error(f"Failed run server. Status code: {res.status_code}")
+        exit(1)
