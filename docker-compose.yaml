@@ -24,6 +24,14 @@ services:
   img_handler:
     build: ./img_handler
     restart: always
+    environment:
+      # Models
+      # u2net: A pre-trained model for general use cases.
+      # u2netp: A lightweight version of u2net model.
+      # u2net_human_seg: A pre-trained model for human segmentation.
+      # u2net_cloth_seg: A pre-trained model for Cloths Parsing from human portrait. Here clothes are parsed into 3 category: Upper body, Lower body and Full body.
+      # silueta: Same as u2net but the size is reduced to 43Mb.
+      MODEL: "u2netp"
     ports:
       - "8080"
 

@@ -47,9 +47,11 @@ def pre_handler(user_data=True):
 
 @pre_handler(user_data=False)
 def start(update: Update, context: CallbackContext):
-    update.effective_chat.send_message("Добро пожаловать! Просто отправь мне фотографию и я удалю с неё фон 😉\n"
-                                       f"Изображений в очереди: {extensions.Statistics.get_queue()}\n\n"
-                                       'Автор: <a href="https://portfolio.devopalev.ru/">DevOpalev</a>',
+    update.effective_chat.send_message("Добро пожаловать! Просто отправь мне фото и я удалю с него фон 😉\n\n"
+                                       "<b>Телефон:</b> 📎 --> Галерея\n"
+                                       "<b>ПК:</b> 📎 --> Выбирите фото --> Поставьте ✅ на \"Сжать изображение\"\n\n"
+                                       f"<b>Изображений в очереди:</b> {extensions.Statistics.get_queue()}\n"
+                                       '<b>Автор:</b> <a href="https://portfolio.devopalev.ru/">DevOpalev</a>',
                                        parse_mode=ParseMode.HTML)
 
 

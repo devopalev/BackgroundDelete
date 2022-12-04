@@ -3,6 +3,7 @@ FROM python:3.10.8-buster
 COPY requirements.txt .
 
 RUN pip3 install --upgrade pip ; pip3 install --user -r requirements.txt
+ENV MODEL="u2netp"
 
 COPY . /app/
 WORKDIR /app/source

@@ -1,19 +1,21 @@
 import logging
+import os
 
-import rembg
 import uvicorn
 from fastapi import FastAPI
 from fastapi import UploadFile
-from rembg import remove
+from rembg import remove, new_session
 from starlette.responses import FileResponse, Response
 
 app = FastAPI()
 logger = logging.getLogger(__name__)
+MODEL = os.getenv("MODEL")
 
 
 def delete_background(img: bytes) -> Response:
     try:
-        new = remove(img)
+        session = new_session("u2netp")
+        new = remove(img, session=session)
         return Response(new, 200)
     except Exception as err:
         logger.error(err)
