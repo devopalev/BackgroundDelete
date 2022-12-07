@@ -36,10 +36,14 @@ async def api_healthcheck():
 
 
 if __name__ == "__main__":
-    with open("test.jpg", "rb") as file:
+    log_format = '[%(asctime)s] [%(levelname)s] - %(message)s'
+    logging.basicConfig(level=logging.INFO, format=log_format)
+
+    with open(os.path.join(os.getcwd(), os.path.abspath("test.jpg")), "rb") as file:
         img = file.read()
     res = delete_background(img)
     if res.status_code == 200:
+        logger.info("Img Handler start")
         uvicorn.run(app, host="0.0.0.0", port=8080)
     else:
         logger.error(f"Failed run server. Status code: {res.status_code}")
